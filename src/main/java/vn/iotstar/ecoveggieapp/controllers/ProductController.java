@@ -52,5 +52,20 @@ public class ProductController {
         List<ProductModel> products = productService.getProductsByPriceRange(minPrice, maxPrice);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
+    
+ // Lấy sản phẩm theo lượt bán giảm dần
+    @GetMapping("/sold/desc")
+    public ResponseEntity<List<ProductModel>> getProductsBySoldQuantityDesc() {
+        List<ProductModel> products = productService.getProductsBySoldQuantityDesc();
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+    
+    // Tìm kiếm sản phẩm theo tên
+    @GetMapping("/search")
+    public ResponseEntity<List<ProductModel>> searchProductsByName(@RequestParam String name) {
+        List<ProductModel> products = productService.searchProductsByName(name);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
 }
 

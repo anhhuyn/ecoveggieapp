@@ -36,6 +36,10 @@ CREATE TABLE products (
     unit NVARCHAR(50) NOT NULL,
     FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE
 );
+-- ADD COLUMN "Số lượng đã bán"
+ALTER TABLE products
+ADD sold_quantity INT NOT NULL DEFAULT 0;
+
 
 -- PRODUCT IMAGES TABLE STRUCTURE:
 CREATE TABLE product_images (

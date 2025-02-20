@@ -38,4 +38,15 @@ public class ProductService {
     public List<ProductModel> getProductsByPriceRange(double minPrice, double maxPrice) {
         return productRepository.getProductsByPriceRange(minPrice, maxPrice);
     }
+    
+ // Lấy sản phẩm theo lượt bán giảm dần
+    public List<ProductModel> getProductsBySoldQuantityDesc() {
+        return productRepository.getProductsBySoldQuantityDesc();
+    }
+    
+    // Tìm kiếm sản phẩm theo tên
+    public List<ProductModel> searchProductsByName(String productName) {
+        return productRepository.searchProductsByName(productName);
+    }
+
 }

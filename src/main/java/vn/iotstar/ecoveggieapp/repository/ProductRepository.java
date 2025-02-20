@@ -35,4 +35,16 @@ public interface ProductRepository extends CrudRepository<ProductModel, Integer>
             "WHERE p.price BETWEEN :minPrice AND :maxPrice " +
             "ORDER BY p.price ASC", nativeQuery = true)
     List<ProductModel> getProductsByPriceRange(@Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice);
+    
+    @Query(value = "SELECT p.*, pi.product_image FROM products p " +
+            "LEFT JOIN product_images pi ON p.product_id = pi.product_id " +
+            "ORDER BY p.sold_quantity DESC", nativeQuery = true)
+    List<ProductModel> getProductsBySoldQuantityDesc(); // Sắp xếp theo số lượng bán giảm dần
+    
+    @Query(value = "SELECT p.*, pi.product_image FROM products p " +
+            "LEFT JOIN product_images pi ON p.product_id = pi.product_id " +
+            "WHERE LOWER(p.product_name) LIKE LOWER(CONCAT('%', :productName, '%'))", nativeQuery = true)
+    List<ProductModel> searchProductsByName(@Param("productName") String productName);
+
+
 }

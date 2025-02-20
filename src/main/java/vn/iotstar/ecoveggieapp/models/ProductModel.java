@@ -25,6 +25,9 @@ public class ProductModel {
     @Column(nullable = false)
     private int instock_quantity;
 
+    @Column(nullable = false, columnDefinition = "INT DEFAULT 0")
+    private int sold_quantity; // Thêm cột sold_quantity
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private CategoryModel category;
@@ -36,13 +39,13 @@ public class ProductModel {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updated_at;
 
-    // Thêm danh sách hình ảnh
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ProductImageModel> productImages;
 
     // Constructors
     public ProductModel() {
-        this.created_at = new Date(); // Gán giá trị mặc định khi khởi tạo
+        this.created_at = new Date();
+        this.sold_quantity = 0; // Gán giá trị mặc định khi khởi tạo
     }
 
     // Getters and Setters
@@ -84,6 +87,14 @@ public class ProductModel {
 
     public void setInstock_quantity(int instock_quantity) {
         this.instock_quantity = instock_quantity;
+    }
+
+    public int getSold_quantity() {
+        return sold_quantity;
+    }
+
+    public void setSold_quantity(int sold_quantity) {
+        this.sold_quantity = sold_quantity;
     }
 
     public CategoryModel getCategory() {
