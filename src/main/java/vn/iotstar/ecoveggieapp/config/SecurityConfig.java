@@ -13,7 +13,7 @@ public class SecurityConfig {
         http
             .csrf().disable() // Tắt CSRF để test API từ Postman
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/v1/user/register", "/api/v1/test", "/api/v1/user/login", "/api/v1/products/all", "/api/v1/products/newest", "/api/v1/products/price/asc", "/api/v1/products/price/desc", "/api/v1/products/price/range").permitAll() // Cho phép truy cập không cần đăng nhập
+                .requestMatchers("/api/v1/user/register", "/api/v1/test", "/api/v1/user/login", "/api/v1/products/all", "/api/v1/products/newest", "/api/v1/products/price/asc", "/api/v1/products/price/desc", "/api/v1/products/price/range", "/api/v1/products/price/range").permitAll() // Cho phép truy cập không cần đăng nhập
                 .anyRequest().authenticated() // Các API khác vẫn yêu cầu xác thực
             )
             .formLogin().disable() // Không dùng form login mặc định
