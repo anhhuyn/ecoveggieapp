@@ -3,37 +3,42 @@ package vn.iotstar.ecoveggieapp.models;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
 public class ProductModel {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int product_id;
-    
+
     @Column(nullable = false, length = 255)
     private String product_name;
-    
+
     @Column(length = 500)
     private String description;
-    
+
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
-    
+
     @Column(nullable = false)
     private int instock_quantity;
-    
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private CategoryModel category;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
     private Date created_at;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date updated_at;
+
+    // Thêm danh sách hình ảnh
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ProductImageModel> productImages;
 
     // Constructors
     public ProductModel() {
@@ -103,5 +108,13 @@ public class ProductModel {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public List<ProductImageModel> getProductImages() {
+        return productImages;
+    }
+
+    public void setProductImages(List<ProductImageModel> productImages) {
+        this.productImages = productImages;
     }
 }

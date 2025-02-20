@@ -37,3 +37,11 @@ CREATE TABLE products (
     FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE
 );
 
+-- PRODUCT IMAGES TABLE STRUCTURE:
+CREATE TABLE product_images (
+    product_image_id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    product_id INT NOT NULL,
+    product_image VARCHAR(255) NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
+);
+
