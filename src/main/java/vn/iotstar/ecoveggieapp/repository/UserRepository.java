@@ -32,4 +32,10 @@ public interface UserRepository extends CrudRepository<UserModel, Integer>{
 						@Param("email") String email,
 						@Param("phone") String phone,
 						@Param("password") String password);
+	
+	@Transactional
+	@Modifying
+	@Query(value = "UPDATE users SET password = :newPassword WHERE email = :email", nativeQuery = true)
+	int updateUserPassword(@Param("email") String email, @Param("newPassword") String newPassword);
+
 }
