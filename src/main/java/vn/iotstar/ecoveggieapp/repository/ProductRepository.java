@@ -45,6 +45,12 @@ public interface ProductRepository extends CrudRepository<ProductModel, Integer>
             "LEFT JOIN product_images pi ON p.product_id = pi.product_id " +
             "WHERE LOWER(p.product_name) LIKE LOWER(CONCAT('%', :productName, '%'))", nativeQuery = true)
     List<ProductModel> searchProductsByName(@Param("productName") String productName);
+    
+    // Lọc theo danh mục
+    @Query(value = "SELECT p.*, pi.product_image FROM products p " +
+            "LEFT JOIN product_images pi ON p.product_id = pi.product_id " +
+            "WHERE p.category_id = :categoryId", nativeQuery = true)
+    List<ProductModel> getProductsByCategoryId(@Param("categoryId") int categoryId);
 
 
 }

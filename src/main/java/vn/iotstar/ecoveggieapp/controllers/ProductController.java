@@ -66,6 +66,14 @@ public class ProductController {
         List<ProductModel> products = productService.searchProductsByName(name);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
+    
+    //Lọc theo danh mục
+    @GetMapping("/category/{id}")
+    public ResponseEntity<List<ProductModel>> getProductsByCategoryId(@PathVariable("id") int categoryId) {
+        List<ProductModel> products = productService.getProductsByCategoryId(categoryId);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
 
 }
 

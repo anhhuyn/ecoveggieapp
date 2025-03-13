@@ -48,5 +48,11 @@ public class ProductService {
     public List<ProductModel> searchProductsByName(String productName) {
         return productRepository.searchProductsByName(productName);
     }
+    
+    //Lọc theo danh mục
+    public List<ProductModel> getProductsByCategoryId(int categoryId) {
+        return productRepository.getProductsByCategoryId(categoryId);
+    }
+
 
 }

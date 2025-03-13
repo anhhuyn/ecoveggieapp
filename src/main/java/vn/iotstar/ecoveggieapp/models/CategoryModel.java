@@ -22,6 +22,9 @@ public class CategoryModel {
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<ProductModel> products;
+    
+    @Transient // Không ánh xạ vào DB
+    private int productCount;
 
     // Getters and Setters
     public int getCategory_id() {
@@ -54,5 +57,13 @@ public class CategoryModel {
 
     public void setProducts(List<ProductModel> products) {
         this.products = products;
+    }
+    
+    public int getProductCount() {
+        return productCount;
+    }
+
+    public void setProductCount(int productCount) {
+        this.productCount = productCount;
     }
 }

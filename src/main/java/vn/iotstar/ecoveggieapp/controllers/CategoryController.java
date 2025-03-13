@@ -18,12 +18,13 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    // Lấy tất cả danh mục
+    // Lấy tất cả danh mục kèm số lượng sản phẩm
     @GetMapping("/all")
-    public ResponseEntity<List<CategoryModel>> getAllCategories() {
-        List<CategoryModel> categories = categoryService.getAllCategories();
+    public ResponseEntity<List<CategoryModel>> getAllCategoriesWithProductCount() {
+        List<CategoryModel> categories = categoryService.getAllCategoriesWithProductCount();
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
+    
 
     // Tìm danh mục theo tên
     @GetMapping("/search")
@@ -31,4 +32,12 @@ public class CategoryController {
         List<CategoryModel> categories = categoryService.getCategoriesByName(name);
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
+    
+    // Đếm số lượng sản phẩm trong mỗi danh mục
+    @GetMapping("/{categoryId}/count")
+    public ResponseEntity<Integer> countProductsByCategory(@PathVariable int categoryId) {
+        int count = categoryService.countProductsByCategory(categoryId);
+        return ResponseEntity.ok(count);
+    }
+
 }
