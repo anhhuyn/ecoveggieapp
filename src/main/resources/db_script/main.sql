@@ -14,6 +14,12 @@ CREATE TABLE users (
     updated_at DATETIME,
     PRIMARY KEY (user_id)
 );
+ALTER TABLE users ADD avatar VARCHAR(255);
+ALTER TABLE users ADD birthday DATETIME;
+ALTER TABLE users ADD COLUMN gender NVARCHAR(10);
+
+
+
 
 
 -- CATEGORY TABLE STRUCTURE:
