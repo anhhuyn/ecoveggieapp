@@ -38,5 +38,14 @@ public class UserService {
 	public int resetUserPassword(String email, String newPassword) {
 		return userRepository.updateUserPassword(email, newPassword);
 	}
+	
+	@Transactional
+	public int updateUserInfo(int userId, String username, String gender, String birthday, String avatar) {
+	    // Lưu thông tin người dùng và avatar vào cơ sở dữ liệu
+	    return userRepository.updateUserInfo(userId, username, gender, birthday, avatar);
+	}
+
+	// End of Sửa tên, giới tính, sinh nhật, avatar
+
 
 }

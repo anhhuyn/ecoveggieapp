@@ -38,4 +38,14 @@ public interface UserRepository extends CrudRepository<UserModel, Integer>{
 	@Query(value = "UPDATE users SET password = :newPassword WHERE email = :email", nativeQuery = true)
 	int updateUserPassword(@Param("email") String email, @Param("newPassword") String newPassword);
 
+	// Sửa tên, giới tính, sinh nhật, avatar
+	@Transactional
+	@Modifying
+	@Query(value = "UPDATE users SET username = :username, gender = :gender, birthday = :birthday, avatar = :avatar WHERE user_id = :user_id", nativeQuery = true)
+	int updateUserInfo(@Param("user_id") int userId,
+	                   @Param("username") String username,
+	                   @Param("gender") String gender,
+	                   @Param("birthday") String birthday,
+	                   @Param("avatar") String avatar);
+
 }

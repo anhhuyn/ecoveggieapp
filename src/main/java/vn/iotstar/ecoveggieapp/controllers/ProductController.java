@@ -1,6 +1,7 @@
 package vn.iotstar.ecoveggieapp.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -73,6 +74,18 @@ public class ProductController {
         List<ProductModel> products = productService.getProductsByCategoryId(categoryId);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
+    
+ // Lấy chi tiết sản phẩm theo ID
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductModel> getProductById(@PathVariable("id") int productId) {
+        Optional<ProductModel> product = productService.getProductById(productId);
+        if (!product.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(product.get(), HttpStatus.OK);
+    }
+
+
 
 
 }

@@ -24,6 +24,9 @@ public class ProductModel {
 
     @Column(nullable = false)
     private int instock_quantity;
+    
+    @Column(nullable = false, length = 50)
+    private String unit; // Cột unit thêm vào
 
     @Column(nullable = false, columnDefinition = "INT DEFAULT 0")
     private int sold_quantity; // Thêm cột sold_quantity
@@ -127,5 +130,13 @@ public class ProductModel {
 
     public void setProductImages(List<ProductImageModel> productImages) {
         this.productImages = productImages;
+    }
+    
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

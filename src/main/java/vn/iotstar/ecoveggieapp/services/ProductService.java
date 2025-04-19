@@ -1,6 +1,7 @@
 package vn.iotstar.ecoveggieapp.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,12 @@ public class ProductService {
     public List<ProductModel> getProductsByCategoryId(int categoryId) {
         return productRepository.getProductsByCategoryId(categoryId);
     }
+
+    // Lấy thông tin 1 sản phẩm theo id
+    public Optional<ProductModel> getProductById(int productId) {
+        return productRepository.getProductById(productId);
+    }
+
 
 
 }
