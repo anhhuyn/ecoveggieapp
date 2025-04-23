@@ -55,3 +55,47 @@ CREATE TABLE product_images (
     FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
 );
 
+
+CREATE TABLE address (
+    id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    user_id INT NOT NULL,
+    province NVARCHAR(255),
+    district NVARCHAR(255),
+    wards NVARCHAR(255),
+    detail NVARCHAR(255),
+    phone VARCHAR(20),
+    is_default BIT DEFAULT 0,
+    
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+
+
+CREATE TABLE orders (
+    id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    customer_id INT NOT NULL,
+    total_amount DECIMAL(10,2) NOT NULL,
+    payment_method NVARCHAR(200),
+    status NVARCHAR(50),
+    note NVARCHAR(MAX), -- Hỗ trợ tiếng Việt và Unicode
+    address_id INT,
+    created_at DATETIME DEFAULT GETDATE(),
+    updated_at DATETIME NULL,
+    deleted_at DATETIME NULL,
+
+    FOREIGN KEY (customer_id) REFERENCES users(user_id),
+    FOREIGN KEY (address_id) REFERENCES address(id)
+);
+
+
+CREATE TABLE order_details (
+    id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
+);
+
