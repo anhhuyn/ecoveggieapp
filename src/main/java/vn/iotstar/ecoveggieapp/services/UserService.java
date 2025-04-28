@@ -1,5 +1,6 @@
 package vn.iotstar.ecoveggieapp.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,21 @@ public class UserService {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	 @Transactional
+	    public int registerNewUserServiceMethod(String username, String email, String phone, String password) {
+	        UserModel user = new UserModel();
+	        user.setUsername(username);
+	        user.setEmail(email);
+	        user.setPhone(phone);
+	        user.setPassword(password);
+	        user.setCreated_at(new Date()); // Set ngày tạo lúc đăng ký
 
-	public int registerNewUserServiceMethod(String username, String email, String phone, String password) {
-		return userRepository.registerNewUser(username, email, phone, password);
-	}
+	        UserModel savedUser = userRepository.save(user); // save() => tự sinh ID
+	        return savedUser.getUser_id();
+	    }
+
+
 	// End Of Register New User Service Method.
 
 	public List<String> checkUserEmail(String email) {

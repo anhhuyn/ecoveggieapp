@@ -2,6 +2,8 @@ package vn.iotstar.ecoveggieapp.models;
 
 import java.util.Date;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
@@ -11,6 +13,7 @@ import jakarta.persistence.Transient;
 public class UserModel {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int user_id;
     private String username;
     private String email;

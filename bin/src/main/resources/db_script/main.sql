@@ -99,25 +99,3 @@ CREATE TABLE order_details (
     FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
 );
 
-
-CREATE TABLE cart (
-    id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-    user_id INT NOT NULL,
-    created_at DATETIME DEFAULT GETDATE(),
-    
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
-);
-
-CREATE TABLE cart_item (
-    id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-    cart_id INT NOT NULL,
-    product_id INT NOT NULL,
-    quantity INT NOT NULL CHECK (quantity >= 1),
-
-    FOREIGN KEY (cart_id) REFERENCES cart(id) ON DELETE CASCADE,
-    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
-);
-
-
-
-

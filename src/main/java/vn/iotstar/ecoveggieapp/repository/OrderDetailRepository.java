@@ -12,7 +12,6 @@ import vn.iotstar.ecoveggieapp.models.OrderDetailModel;
 @Repository
 public interface OrderDetailRepository extends CrudRepository<OrderDetailModel, Integer> {
 
-    // Chèn chi tiết đơn hàng vào bảng order_details (sử dụng price thay vì unitPrice)
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO order_details (order_id, product_id, quantity, price) " +
