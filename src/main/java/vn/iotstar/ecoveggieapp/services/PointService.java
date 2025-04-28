@@ -31,5 +31,11 @@ public class PointService {
     public void insertPointForUser(int userId) {
         pointRepository.insertPoint(userId);
     }
+    
+    // Reset total_points = 0 cho user
+    @Transactional
+    public void resetTotalPointsForUser(int userId) {
+        pointRepository.resetTotalPoints(userId);
+    }
 
 }

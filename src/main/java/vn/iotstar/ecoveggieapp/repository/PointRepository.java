@@ -32,5 +32,12 @@ public interface PointRepository extends CrudRepository<PointModel, Integer> {
     @Query(value = "INSERT INTO points (user_id, total_points, created_at, updated_at, count_day) " +
                    "VALUES (:user_id, 100, GETDATE(), GETDATE(), 0)", nativeQuery = true)
     void insertPoint(@Param("user_id") int userId);
+    
+ // Update total_points = 
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE points SET total_points = 0 WHERE user_id = :user_id", nativeQuery = true)
+    void resetTotalPoints(@Param("user_id") int userId);
+
 
 }

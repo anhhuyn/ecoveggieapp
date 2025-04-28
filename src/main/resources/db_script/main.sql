@@ -118,6 +118,17 @@ CREATE TABLE cart_item (
     FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
 );
 
+CREATE TABLE points (
+    id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    user_id INT NOT NULL,
+	total_points INT NOT NULL DEFAULT 0,
+	created_at DATETIME DEFAULT GETDATE(),
+	updated_at DATETIME,
+	count_day INT,
+    
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
 
 
 

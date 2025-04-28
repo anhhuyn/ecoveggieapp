@@ -53,5 +53,17 @@ public class PointController {
             return new ResponseEntity<>("Lỗi khi thêm mới điểm: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
+ // Reset điểm (total_points = 0) cho người dùng
+    @PostMapping("/points/reset")
+    public ResponseEntity<String> resetTotalPoints(
+            @RequestParam("user_id") int userId) {
+        try {
+            pointService.resetTotalPointsForUser(userId);
+            return new ResponseEntity<>("Đã reset điểm thành công.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Lỗi khi reset điểm: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }
