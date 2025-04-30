@@ -14,17 +14,13 @@ import java.util.List;
 public class CartController {
 
     @Autowired
-    private CartItemService cartItemService;
+    private CartItemService cartService;
 
-    // API lấy tất cả sản phẩm trong giỏ hàng của 1 user
-    @GetMapping("/items/{userId}")
-    public ResponseEntity<List<CartItemModel>> getCartItemsByUser(@PathVariable("userId") int userId) {
-        List<CartItemModel> cartItems = cartItemService.getCartItemsByUserId(userId);
-
-        if (cartItems == null || cartItems.isEmpty()) {
-            return ResponseEntity.noContent().build(); // 204 No Content nếu không có sản phẩm
-        }
-
-        return ResponseEntity.ok(cartItems); // 200 OK với danh sách sản phẩm
+    // API lấy tất cả sản phẩm trong giỏ hàng của 1 user (qua query param)
+    @GetMapping("/user")
+    public ResponseEntity<List<CartItemModel>> getCartItems(@RequestParam("user_id") int userId) {
+        List<CartItemModel> cartItems = cartService.getCartItemsByUserId(userId);
+        return ResponseEntity.ok(cartItems);
     }
 }
+

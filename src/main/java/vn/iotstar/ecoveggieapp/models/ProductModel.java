@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "products")
 public class ProductModel {
@@ -139,4 +141,15 @@ public class ProductModel {
     public void setUnit(String unit) {
         this.unit = unit;
     }
+    
+    @Transient
+    public List<String> getImages() {
+        if (productImages == null) return List.of();
+        return productImages.stream()
+                .map(ProductImageModel::getProduct_image)
+                .toList();
+    }
+
+
+
 }

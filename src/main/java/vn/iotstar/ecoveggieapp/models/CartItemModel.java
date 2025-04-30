@@ -1,5 +1,7 @@
 package vn.iotstar.ecoveggieapp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class CartItemModel {
     private int id;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "cart_id", nullable = false)
     private CartModel cart;
 

@@ -1,5 +1,7 @@
 package vn.iotstar.ecoveggieapp.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,5 +22,14 @@ public class AddressController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(defaultAddress);
+    }
+    
+    @GetMapping("/all")
+    public ResponseEntity<List<AddressModel>> getAllAddresses(@RequestParam("user_id") int userId) {
+        List<AddressModel> addresses = addressService.getAllAddressesByUserId(userId);
+        if (addresses == null || addresses.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(addresses);
     }
 }
