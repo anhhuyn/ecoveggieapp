@@ -32,4 +32,16 @@ public class AddressController {
         }
         return ResponseEntity.ok(addresses);
     }
+    
+    // Cập nhật địa chỉ
+    @PutMapping("/{id}")
+    public ResponseEntity<AddressModel> updateAddress(@PathVariable int id, @RequestBody AddressModel updatedAddress) {
+        AddressModel updated = addressService.updateAddress(id, updatedAddress);
+        
+        if (updated == null) {
+            return ResponseEntity.notFound().build();  // Trả về 404 nếu địa chỉ không tồn tại
+        }
+        
+        return ResponseEntity.ok(updated);  // Trả về địa chỉ đã được cập nhật
+    }
 }
