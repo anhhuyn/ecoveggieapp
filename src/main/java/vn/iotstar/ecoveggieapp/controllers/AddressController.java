@@ -44,4 +44,26 @@ public class AddressController {
         
         return ResponseEntity.ok(updated);  // Trả về địa chỉ đã được cập nhật
     }
+    
+ // Thêm địa chỉ mới
+    @PostMapping("")
+    public ResponseEntity<AddressModel> insertAddress(@RequestBody AddressModel newAddress) {
+        try {
+            AddressModel createdAddress = addressService.insertAddress(newAddress);
+            return ResponseEntity.ok(createdAddress);  // 200 OK với địa chỉ mới
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();  // 400 Bad Request nếu có lỗi
+        }
+    }
+
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<String> deleteAddress(@PathVariable int id) {
+        boolean deleted = addressService.deleteAddressById(id);
+        if (deleted) {
+            return ResponseEntity.ok("Địa chỉ đã được xóa thành công.");
+        } else {
+            return ResponseEntity.notFound().build(); // 404 nếu không tìm thấy địa chỉ
+        }
+    }
+
 }

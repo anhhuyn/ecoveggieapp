@@ -52,4 +52,37 @@ public class AddressService {
 
         return null;
     }
+    
+    // Thêm địa chỉ
+    public AddressModel insertAddress(AddressModel newAddress) {
+        // Nếu địa chỉ mới là mặc định
+        if (newAddress.isIs_default()) {
+            int userId = newAddress.getUser().getUser_id();
+            List<AddressModel> userAddresses = addressRepository.findAllAddressesByUserId(userId);
+
+            for (AddressModel addr : userAddresses) {
+                if (addr.isIs_default()) {
+                    addr.setIs_default(false);
+                    addressRepository.save(addr); // cập nhật lại
+                }
+            }
+        }
+
+        // Thêm địa chỉ mới
+        return addressRepository.save(newAddress);
+    }
+    
+    // Xoa dia chi
+    public boolean deleteAddressById(int id) {
+        AddressModel existingAddress = addressRepository.findById(id).orElse(null);
+
+        if (existingAddress != null) {
+            addressRepository.deleteById(id);
+            return true;
+        }
+
+        return false; // Địa chỉ không tồn tại
+    }
+
+
 }
