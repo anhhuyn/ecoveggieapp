@@ -24,16 +24,6 @@ public interface UserRepository extends CrudRepository<UserModel, Integer>{
 	@Query(value= "SELECT * FROM users WHERE email = :email", nativeQuery = true)
 	UserModel GetUserDetailsByEmail(@Param("email") String email);
 	
-	/*@Transactional
-	@Query(value = "INSERT INTO USERS(username, email, phone, password) OUTPUT INSERTED.ID " +
-	               "VALUES(:username, :email, :phone, :password)", nativeQuery = true)
-	int registerNewUserAndReturnId(@Param("username") String username,
-	                               @Param("email") String email,
-	                               @Param("phone") String phone,
-	                               @Param("password") String password);*/
-
-
-	
 
 	@Transactional
 	@Modifying

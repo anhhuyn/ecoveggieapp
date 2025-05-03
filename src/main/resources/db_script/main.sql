@@ -129,6 +129,27 @@ CREATE TABLE points (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
+CREATE TABLE review (
+    review_id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    rating INT CHECK (rating >= 1 AND rating <= 5),
+    comment NVARCHAR(MAX),
+    created_at DATETIME DEFAULT GETDATE(),
+
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
+);
+
+CREATE TABLE review_media (
+    id INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    review_id INT NOT NULL,
+    media_url VARCHAR(255) NOT NULL,
+    media_type NVARCHAR(10) CHECK (media_type IN ('image', 'video')),
+    uploaded_at DATETIME DEFAULT GETDATE(),
+
+    FOREIGN KEY (review_id) REFERENCES review(review_id) ON DELETE CASCADE
+);
 
 
 
