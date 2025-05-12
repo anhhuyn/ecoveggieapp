@@ -22,5 +22,10 @@ public class CartController {
         List<CartItemModel> cartItems = cartService.getCartItemsByUserId(userId);
         return ResponseEntity.ok(cartItems);
     }
+    @DeleteMapping("/item/{cartItemId}")
+    public ResponseEntity<String> deleteCartItem(@PathVariable("cartItemId") Integer id) {
+        cartService.deleteCartItemById(id);
+        return ResponseEntity.ok("Xóa thành công");
+    }
 }
 
