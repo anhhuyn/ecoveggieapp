@@ -16,6 +16,9 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
+	@Autowired
+	CartService cartService;
+	
 	 @Transactional
 	    public int registerNewUserServiceMethod(String username, String email, String phone, String password) {
 	        UserModel user = new UserModel();
@@ -26,6 +29,7 @@ public class UserService {
 	        user.setCreated_at(new Date()); // Set ngày tạo lúc đăng ký
 
 	        UserModel savedUser = userRepository.save(user); // save() => tự sinh ID
+	        cartService.createCartForUser(savedUser);
 	        return savedUser.getUser_id();
 	    }
 
@@ -59,5 +63,8 @@ public class UserService {
 
 	// End of Sửa tên, giới tính, sinh nhật, avatar
 
+	
+	
+	
 
 }

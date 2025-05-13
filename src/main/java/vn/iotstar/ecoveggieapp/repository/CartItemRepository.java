@@ -25,6 +25,7 @@ public interface CartItemRepository extends CrudRepository<CartItemModel, Intege
 
 	
 	
+	
 	// Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
     @Query("SELECT ci FROM CartItemModel ci WHERE ci.cart.id = :cartId AND ci.product.id = :productId")
     Optional<CartItemModel> findCartItemByCartAndProductId(@Param("cartId") int cartId, @Param("productId") int productId);

@@ -33,7 +33,9 @@ public class CartItemService {
     public void deleteCartItemById(int cartItemId) {
         cartItemRepository.deleteById(cartItemId);
     }
-   /* @Transactional
+    
+    
+    @Transactional
     public void addToCart(int userId, int productId, int quantityToAdd) {
         // Bước 1: Lấy cart hiện tại của user
         CartModel cart = cartService.getCartByUserId(userId);
@@ -43,36 +45,40 @@ public class CartItemService {
 
         int cartId = cart.getId();
 
-        // Bước 2: Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
-        Optional<CartItemModel> existingCartItemOpt = cartItemRepository.findCartItemByCartAndProductId(cartId, productId);
+     // Bước 2: Kiểm tra sản phẩm đã có trong giỏ chưa
+     Optional<CartItemModel> existingCartItemOpt =
+         cartItemRepository.findCartItemByCartAndProductId(cartId, productId);
 
-        // Bước 3: Lấy thông tin sản phẩm từ database
-        ProductModel product = productRepository.findProductById(productId);
-        if (product == null) {
-            throw new RuntimeException("Product not found with id: " + productId);
-        }
+     // Bước 3: Lấy thông tin sản phẩm
+     ProductModel product = productRepository.getProductById(productId)
+    		 .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm với id: " + productId));
+     if (product == null) {
+         throw new RuntimeException("Không tìm thấy sản phẩm với ID: " + productId);
+     }
 
-        int currentStock = product.getInstock_quantity();
-        if (currentStock < quantityToAdd) {
-            throw new RuntimeException("Not enough stock. Current: " + currentStock + ", Requested: " + quantityToAdd);
-        }
+     // Bước 4: Kiểm tra số lượng tồn kho
+     int currentStock = product.getInstock_quantity();
+     if (currentStock < quantityToAdd) {
+         throw new RuntimeException("Không đủ hàng trong kho. Hiện còn: " + currentStock);
+     }
 
-        if (existingCartItemOpt.isPresent()) {
-            // Nếu đã có trong giỏ hàng: cập nhật số lượng
-            CartItemModel cartItem = existingCartItemOpt.get();
-            int newQuantity = cartItem.getQuantity() + quantityToAdd;
-            cartItemRepository.updateCartItemQuantity(cartId, productId, newQuantity);
-        } else {
-            // Nếu chưa có: tạo mới cart item
-            CartItemModel newCartItem = new CartItemModel();
-            newCartItem.setCart(cart);
-            newCartItem.setProduct(product);
-            newCartItem.setQuantity(quantityToAdd);
-            cartItemRepository.save(newCartItem);
-        }
+     if (existingCartItemOpt.isPresent()) {
+         // Nếu sản phẩm đã có trong giỏ: cập nhật số lượng
+         CartItemModel cartItem = existingCartItemOpt.get();
+         int newQuantity = cartItem.getQuantity() + quantityToAdd;
+         cartItemRepository.updateCartItemQuantity(cartId, productId, newQuantity);
+     } else {
+         // Nếu chưa có: tạo mới cart item
+         CartItemModel newCartItem = new CartItemModel();
+         newCartItem.setCart(cart);
+         newCartItem.setProduct(product);
+         newCartItem.setQuantity(quantityToAdd);
+         cartItemRepository.save(newCartItem);
+     }
 
-        // Bước 4: Cập nhật lại số lượng tồn kho của sản phẩm
-        int updatedStock = currentStock - quantityToAdd;
-        productRepository.updateProductStockQuantity(productId, updatedStock);
-    }*/
+     // Bước 5: Cập nhật lại số lượng tồn kho của sản phẩm
+     int updatedStock = currentStock - quantityToAdd;
+     productRepository.updateProductStockQuantity(productId, updatedStock);
+
+    }
 }

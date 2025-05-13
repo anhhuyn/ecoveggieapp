@@ -1,10 +1,14 @@
 package vn.iotstar.ecoveggieapp.repository;
 
 import vn.iotstar.ecoveggieapp.models.ProductModel;
+
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -101,4 +105,9 @@ public interface ProductRepository extends CrudRepository<ProductModel, Integer>
     Optional<ProductModel> getProductById(@Param("productId") int productId);
 
 
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ProductModel p SET p.instock_quantity = :quantity WHERE p.id = :productId")
+    void updateProductStockQuantity(@Param("productId") int productId, @Param("quantity") int quantity);
 }

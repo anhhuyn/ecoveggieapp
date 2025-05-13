@@ -27,5 +27,20 @@ public class CartController {
         cartService.deleteCartItemById(id);
         return ResponseEntity.ok("Xóa thành công");
     }
+    
+    @PostMapping("/add")
+    public ResponseEntity<String> addToCart(
+            @RequestParam("user_id") int userId,
+            @RequestParam("product_id") int productId,
+            @RequestParam("quantity") int quantity
+    ) {
+        try {
+            cartService.addToCart(userId, productId, quantity);
+            return ResponseEntity.ok("Đã thêm sản phẩm vào giỏ hàng");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body("Lỗi: " + e.getMessage());
+        }
+    }
+
 }
 
