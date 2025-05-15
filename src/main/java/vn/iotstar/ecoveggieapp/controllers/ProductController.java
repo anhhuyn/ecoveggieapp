@@ -86,7 +86,18 @@ public class ProductController {
     }
 
 
+    @PutMapping("/{id}/update-quantity")
+    public ResponseEntity<String> updateSoldAndStockQuantity(
+            @PathVariable("id") int productId,
+            @RequestParam("quantity") int quantity) {
 
+        try {
+            productService.updateSoldAndStockQuantity(productId, quantity);
+            return new ResponseEntity<>("Cập nhật số lượng thành công", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Cập nhật thất bại: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }
 

@@ -83,6 +83,11 @@ public class AddressService {
 
         return false; // Địa chỉ không tồn tại
     }
+    
+    public AddressModel getAddressById(int addressId) {
+        return addressRepository.findAddressById(addressId);
+    }
+
 
 
 }

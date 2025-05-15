@@ -110,4 +110,10 @@ public interface ProductRepository extends CrudRepository<ProductModel, Integer>
     @Transactional
     @Query("UPDATE ProductModel p SET p.instock_quantity = :quantity WHERE p.id = :productId")
     void updateProductStockQuantity(@Param("productId") int productId, @Param("quantity") int quantity);
+    
+    @Modifying
+    @Transactional
+    @Query("UPDATE ProductModel p SET p.sold_quantity = p.sold_quantity + :quantity, p.instock_quantity = p.instock_quantity - :quantity WHERE p.product_id = :productId")
+    void updateSoldAndStockQuantity(@Param("productId") int productId, @Param("quantity") int quantity);
+
 }

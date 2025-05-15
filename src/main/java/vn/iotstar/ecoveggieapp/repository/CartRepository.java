@@ -18,4 +18,8 @@ public interface CartRepository extends CrudRepository<CartModel, Integer> {
     List<CartItemModel> findAllCartItemsByUserId(int userId);
     @Query("SELECT c FROM CartModel c WHERE c.user.id = :userId")
     Optional<CartModel> findCartByUserId(@Param("userId") int userId);
+    
+    @Query(value = "SELECT COUNT(*) FROM cart_item ci WHERE ci.cart_id IN (SELECT c.id FROM cart c WHERE c.user_id = :userId)", nativeQuery = true)
+    int countCartItemsByUserId(@Param("userId") int userId);
+
 }

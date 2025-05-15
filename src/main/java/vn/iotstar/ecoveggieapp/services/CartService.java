@@ -31,5 +31,9 @@ public class CartService {
         cart.setCreatedAt(new Date());
         cartRepository.save(cart);
     }
+    public int countCartItemsByUserId(int userId) {
+        return cartRepository.countCartItemsByUserId(userId);
+    }
+
     
 }

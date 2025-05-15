@@ -65,5 +65,14 @@ public class AddressController {
             return ResponseEntity.notFound().build(); // 404 nếu không tìm thấy địa chỉ
         }
     }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<AddressModel> getAddressById(@PathVariable int id) {
+        AddressModel address = addressService.getAddressById(id);
+        if (address == null) {
+            return ResponseEntity.notFound().build(); // 404 nếu không tìm thấy
+        }
+        return ResponseEntity.ok(address); // 200 OK với địa chỉ chi tiết
+    }
 
 }

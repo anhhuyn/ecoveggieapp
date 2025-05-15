@@ -17,4 +17,8 @@ public interface AddressRepository extends CrudRepository<AddressModel, Integer>
     // Lấy tất cả địa chỉ theo user_id
     @Query(value = "SELECT * FROM address WHERE user_id = :userId", nativeQuery = true)
     List<AddressModel> findAllAddressesByUserId(int userId);
+    
+    @Query(value = "SELECT * FROM address WHERE id = :addressId", nativeQuery = true)
+    AddressModel findAddressById(int addressId);
+
 }

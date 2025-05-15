@@ -162,5 +162,10 @@ public class OrderService {
 
         return result;
     }
+    
+    public int countOrdersByStatus(int customerId, String status) {
+        return orderRepository.countOrdersByStatus(customerId, status);
+    }
+
 
 }

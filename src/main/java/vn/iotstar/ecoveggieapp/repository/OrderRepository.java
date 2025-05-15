@@ -72,7 +72,7 @@ public interface OrderRepository extends CrudRepository<OrderModel, Integer> {
     	    JOIN order_details od ON o.id = od.order_id
     	    JOIN products p ON od.product_id = p.product_id
 
-    	    WHERE o.customer_id = :customerId AND o.status = 'Pending'
+    	    WHERE o.customer_id = :customerId AND o.status = 'Pending Confirm'
     	    AND od.id = (
     	        SELECT TOP 1 od2.id
     	        FROM order_details od2
@@ -283,5 +283,9 @@ public interface OrderRepository extends CrudRepository<OrderModel, Integer> {
                     ORDER BY o.created_at DESC
             """, nativeQuery = true)
             List<Object[]> findCanceledOrdersWithFirstProductRaw(@Param("customerId") int customerId);
+            
+            // Đếm số lượng đơn hàng theo trạng thái truyền vào
+            @Query(value = "SELECT COUNT(*) FROM orders WHERE customer_id = :customerId AND LTRIM(RTRIM(status)) COLLATE Latin1_General_CS_AS = :status", nativeQuery = true)
+            int countOrdersByStatus(@Param("customerId") int customerId, @Param("status") String status);
 
 }

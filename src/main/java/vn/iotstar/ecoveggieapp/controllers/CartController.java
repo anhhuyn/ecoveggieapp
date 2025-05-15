@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import vn.iotstar.ecoveggieapp.models.CartItemModel;
 import vn.iotstar.ecoveggieapp.services.CartItemService;
+import vn.iotstar.ecoveggieapp.services.CartService;
 
 import java.util.List;
 
@@ -15,6 +16,10 @@ public class CartController {
 
     @Autowired
     private CartItemService cartService;
+
+    @Autowired
+    private CartService cartService1;
+
 
     // API lấy tất cả sản phẩm trong giỏ hàng của 1 user (qua query param)
     @GetMapping("/user")
@@ -40,6 +45,13 @@ public class CartController {
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body("Lỗi: " + e.getMessage());
         }
+    }
+    
+
+    @GetMapping("/count")
+    public ResponseEntity<Integer> countCartItems(@RequestParam("user_id") int userId) {
+        int count = cartService1.countCartItemsByUserId(userId);
+        return ResponseEntity.ok(count);
     }
 
 }

@@ -76,4 +76,13 @@ public class OrderController {
         List<Map<String, Object>> result = orderService.getCanceledOrdersWithFirstProduct(customerId);
         return ResponseEntity.ok(result);
     }
+    
+    @GetMapping("/orders/count")
+    public ResponseEntity<Integer> countOrdersByStatus(
+            @RequestParam("customerId") int customerId,
+            @RequestParam("status") String status) {
+        int count = orderService.countOrdersByStatus(customerId, status);
+        return ResponseEntity.ok(count);
+    }
+
 }

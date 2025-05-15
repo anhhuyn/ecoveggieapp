@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import vn.iotstar.ecoveggieapp.models.ProductModel;
 import vn.iotstar.ecoveggieapp.repository.ProductRepository;
 
@@ -61,5 +62,10 @@ public class ProductService {
     }
 
 
+    // Cập nhật sold_quantity và instock_quantity
+    @Transactional
+    public void updateSoldAndStockQuantity(int productId, int quantity) {
+        productRepository.updateSoldAndStockQuantity(productId, quantity);
+    }
 
 }
