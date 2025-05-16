@@ -61,5 +61,88 @@ Tính năng chính:
 - **Kiểu dữ liệu**: Quan hệ (Relational Database)
 - **Đặc điểm**: Cấu trúc rõ ràng, tối ưu truy vấn, dễ mở rộng
 
+### 3. Hướng dẫn cài đặt Backend cho EcoVeggieApp
 
+## Yêu cầu tiên quyết
+
+Trước khi bắt đầu, hãy đảm bảo đã cài đặt các phần mềm sau:
+
+* **Java Development Kit (JDK):** Phiên bản 17 hoặc cao hơn.
+* **Spring Tool Suite 4 (STS4):** Đây là một môi trường phát triển tích hợp (IDE) dựa trên Eclipse, được tùy chỉnh cho phát triển ứng dụng Spring Boot.
+* **Maven:** Công cụ quản lý dự án và build. STS4 thường tích hợp sẵn Maven, nhưng nên đảm bảo nó được cài đặt và cấu hình đúng.
+* **Microsoft SQL Server:** Cơ sở dữ liệu sẽ sử dụng. Đảm bảo SQL Server đã được cài đặt và đang chạy.
+* **SQL Server Management Studio (SSMS) (tùy chọn):** Công cụ này giúp quản lý cơ sở dữ liệu SQL Server dễ dàng hơn.
+
+## Các bước cài đặt
+
+1.  **Import dự án vào STS4:**
+    * Mở STS4.
+    * Chọn **File** -> **Import...**.
+    * Trong cửa sổ Import, chọn **Maven** -> **Existing Maven Projects** và nhấn **Next**.
+    * Nhấn vào nút **Browse...** và chọn thư mục chứa file `pom.xml` của dự án backend EcoVeggieApp.
+    * STS4 sẽ tự động phát hiện dự án. Nhấn **Finish**.
+
+2.  **Cấu hình cơ sở dữ liệu:**
+    * Tìm và mở file `src/main/resources/application.properties` trong Project Explorer của STS4.
+    * Kiểm tra và chỉnh sửa các thông tin kết nối cơ sở dữ liệu cho phù hợp với cấu hình SQL Server:
+
+        ```properties
+        spring.application.name=EcoVeggieApp
+        server.port=9080
+        spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=ecoveggieApp;encrypt=true;trustServerCertificate=true
+        spring.datasource.username=sa
+        spring.datasource.password=05052004
+    
+        **Lưu ý:**
+        * Đảm bảo `spring.datasource.url`, `spring.datasource.username`, và `spring.datasource.password` khớp với thông tin đăng nhập và tên cơ sở dữ liệu SQL Server.
+
+3.  **Cấu hình Maven Dependencies:**
+    * Mở file `pom.xml` để xem các dependencies của dự án. Các dependencies cần thiết cho kết nối SQL Server và Spring Data JPA đã được bao gồm:
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        ```
+
+    * STS4 sẽ tự động tải xuống các dependencies này. Nếu không, Có thể chuột phải vào dự án trong Project Explorer, chọn **Maven** -> **Update Project...** và tích vào **Force Update of Snapshots/Releases** rồi nhấn **OK**.
+
+4.  **Chạy ứng dụng:**
+    * Trong Project Explorer, tìm class chính của ứng dụng Spring Boot (thường có annotation `@SpringBootApplication`, ví dụ: `EcoVeggieAppApplication.java`).
+    * Chuột phải vào class này, chọn **Run As** -> **Maven Build**.
+    * STS4 sẽ bắt đầu build và chạy ứng dụng backend. Có thể theo dõi tiến trình trong cửa sổ Console.
+    * Khi ứng dụng khởi động thành công, thấy các log thông báo, bao gồm cổng server đang chạy (trong trường hợp này là `9080`).
+
+## Các bước tiếp theo
+
+* **Tạo và quản lý cơ sở dữ liệu:** Đảm bảo cơ sở dữ liệu `ecoveggieApp` đã được tạo trong SQL Server. Có thể sử dụng SSMS để thực hiện việc này.
+* **Xây dựng các API:** Tiếp tục phát triển các API (endpoints) cần thiết cho ứng dụng EcoVeggieApp.
+* **Kiểm thử API:** Sử dụng các công cụ như Postman hoặc Swagger để kiểm thử các API đã xây dựng.
 
